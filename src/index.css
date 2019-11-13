@@ -1,3 +1,7 @@
+/* Ionicons CDN */
+@import url('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
+
+/* UI Extension styles */
 html,
 body,
 div {
@@ -7,4 +11,18 @@ div {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+}
+
+
+body{
+  height: 200px;
+  padding: 1px;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+.select-icon{
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 20px;
 }

@@ -3,7 +3,7 @@ import { App } from './index';
 import { render, fireEvent, cleanup, configure } from '@testing-library/react';
 
 configure({
-  testIdAttribute: 'data-test-id'
+  testIdAttribute: 'data-icon-selector'
 });
 
 function renderComponent(sdk) {

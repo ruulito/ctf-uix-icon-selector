@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import { TextInput } from '@contentful/forma-36-react-components';
 import { init } from 'contentful-ui-extensions-sdk';
-import '@contentful/forma-36-react-components/dist/styles.css';
+
+import Select from 'react-select';
+import { components } from 'react-select';
+const { SingleValue, Option } = components;
+
 import './index.css';
 
 export class App extends React.Component {
+  
   static propTypes = {
     sdk: PropTypes.object.isRequired
   };
@@ -15,14 +19,15 @@ export class App extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
-      value: props.sdk.field.getValue() || ''
+      value: props.sdk.field.getValue() || null
     };
+    
   }
 
   componentDidMount() {
     this.props.sdk.window.startAutoResizer();
-
     // Handler for external field value changes (e.g. when multiple authors are working on the same entry).
     this.detachExternalChangeHandler = this.props.sdk.field.onValueChanged(this.onExternalChange);
   }
@@ -34,29 +39,76 @@ export class App extends React.Component {
   }
 
   onExternalChange = value => {
-    this.setState({ value });
-  };
+    this.setState({ value })
+  }
 
-  onChange = e => {
-    const value = e.currentTarget.value;
-    this.setState({ value });
-    if (value) {
+  onChange = value => {
+    // Set state for select field
+    this.setState(
+      prevState => ({
+        ...prevState.value,
+        value
+      })
+    );
+    //Set field value
+    if ( value != null ){
       this.props.sdk.field.setValue(value);
-    } else {
-      this.props.sdk.field.removeValue();
     }
   };
 
   render() {
+
+    // Custom constants and functions
+
+    const customSingleValue = (props) => (
+      <SingleValue {...props}>
+          <i className={ props.data.value + ' select-icon' }></i>
+          <span>{ props.data.label }</span>
+      </SingleValue>
+    );
+    
+    const customOption = (props) => (
+      <Option {...props}>
+        <i className={ props.data.value + ' select-icon'}></i>
+        <span>{ props.data.label }</span>
+      </Option>
+    );
+
+    const customStyles = {
+      control: (provided) => ({
+        ...provided,
+        borderRadius: '0px'
+      }),
+      menu: (provided) => ({
+        ...provided,
+        borderRadius: '0px'
+      }),
+    };
+
+    // Properties for select field
+
+    const options = [
+      { value: 'ion-ios-monitor-outline', label: 'Monitor' },
+      { value: 'ion-ios-settings', label: 'Settings' },
+      { value: 'ion-social-googleplus-outline', label: 'Google Plus' },
+      { value: 'ion-ios-heart-outline', label: 'Heart' }
+    ];
+
+    const props = {
+      options: options,
+      value: this.state.value,
+      placeholder: 'Select an icon...',
+      onChange: this.onChange,
+      components: { 
+        SingleValue: customSingleValue,
+        Option: customOption
+      },
+      styles: customStyles
+    }
+
+    // Load select field
     return (
-      <TextInput
-        width="large"
-        type="text"
-        id="my-field"
-        testId="my-field"
-        value={this.state.value}
-        onChange={this.onChange}
-      />
+      <Select {...props} />
     );
   }
 }

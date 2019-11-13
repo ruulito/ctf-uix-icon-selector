@@ -1,0 +1,4 @@
+{ value: 'ion-ios-monitor-outline', label: 'Monitor' },
+{ value: 'ion-ios-settings', label: 'Settings' },
+{ value: 'ion-social-googleplus-outline', label: 'Google Plus' },
+{ value: 'ion-ios-heart-outline', label: 'Heart' }
