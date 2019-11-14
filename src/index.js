@@ -7,6 +7,8 @@ import Select from 'react-select';
 import { components } from 'react-select';
 const { SingleValue, Option } = components;
 
+import Options from './options.json';
+
 import './index.css';
 
 export class App extends React.Component {
@@ -87,15 +89,8 @@ export class App extends React.Component {
 
     // Properties for select field
 
-    const options = [
-      { value: 'ion-ios-monitor-outline', label: 'Monitor' },
-      { value: 'ion-ios-settings', label: 'Settings' },
-      { value: 'ion-social-googleplus-outline', label: 'Google Plus' },
-      { value: 'ion-ios-heart-outline', label: 'Heart' }
-    ];
-
     const props = {
-      options: options,
+      options: Options,
       value: this.state.value,
       placeholder: 'Select an icon...',
       onChange: this.onChange,
