@@ -1,6 +1,6 @@
 {
   "id": "ctf-uix-icon-selector",
-  "name": "ctf-uix-icon-selector",
+  "name": "Icon Selector",
   "srcdoc": "./build/index.html",
   "fieldTypes": [
     "Object"
